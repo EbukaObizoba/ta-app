@@ -1,6 +1,6 @@
 Quick Start:
 1. Clone the project
-	- run ```git clone the_link_to_the_repo```
+	- run ```git https://github.com/malikhijazi/ta-app.git```
 2. Install Backend Dependencies
 	- Go to base directory
 	- run ```yarn install```
