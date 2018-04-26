@@ -6,7 +6,7 @@ $body = <<<BODY
 
      <div class="container">
         <h1>Student Registration</h1>
-        <form action='$_SERVER[PHP_SELF]' method="post">
+        <form action="addStudent.php" method="post">
         
             <div class="form-group">
                 <label for="email">Email: </label>
@@ -45,8 +45,8 @@ $body = <<<BODY
             
             <div class="form-group">
                 <label for="taB4">Have you TA'd before? </label>
-                <input type="radio" name="taB4" class="form-control" id="taB4" required>Yes
-                <input type="radio" name="taB4" class="form-control" required>No<br><br>
+                <input type="radio" name="taB4" class="form-control" id="taB4" value="Y" required>Yes
+                <input type="radio" name="taB4" class="form-control" value="N" required>No<br><br>
             </div>
             
              <div class="form-group">
@@ -56,23 +56,32 @@ $body = <<<BODY
             
             <div class="form-group">
                 <label for="grad">Are you a graduate student? </label>
-                <input type="radio" name="grad" class="form-control" id="grad" required>Yes
-                <input type="radio" name="grad" class="form-control" required>No<br><br>
+                <input type="radio" name="grad" class="form-control" id="grad" value="grad" required>Yes
+                <input type="radio" name="grad" class="form-control" value="undergrad" required>No<br><br>
             </div>
             
             
-            <div class="form-group">
-                <label for="resume">Resume: </label>
-                <input type="file" name="resumeID" class="form-control" id="resume" required><br><br>
-            </div>
+            <!--<div class="form-group">-->
+                <!--<label for="resume">Resume: </label>-->
+                <!--<input type="file" name="resumeID" class="form-control" id="resume" required><br><br>-->
+            <!--</div>-->
+            <!---->
+            <!--<div class="form-group">-->
+                <!--<label for="transcript">Transcript: </label>-->
+                <!--<input type="file" name="transcriptID" class="form-control" id="transcript" required><br><br>-->
+            <!--</div>-->
             
-            <div class="form-group">
-                <label for="transcript">Transcript: </label>
-                <input type="file" name="transcriptID" class="form-control" id="transcript" required><br><br>
+            <div class='form-group'>
+                    <button type='submit' class="btn btn-default">Submit</button>
             </div>
-            
         </form>
     </div>
+        <script
+          src="http://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 BODY;
 
 echo generatePage($body);
