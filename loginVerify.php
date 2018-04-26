@@ -5,8 +5,9 @@
     $table = "professor";
     $emailCol = "profEmail";
     if (isset($_SESSION["student"])) {
+        
         $table = "StudentTable";
-        $emaiCol = "email";
+        $emailCol = "email";
     }
     $email = $_POST["email"];
     $pass = $_POST["password"];
