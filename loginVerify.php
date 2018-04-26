@@ -21,6 +21,12 @@
         $result->data_seek(0);
         $row = $result->fetch_array(MYSQLI_ASSOC);
         var_dump($row);
+        $_SESSION["profile"] = $row;
+        if($table == "professor"){
+            header("Location: professorProfile.php");
+        } else {
+            header("Location: studentProfile.php");
+        }
     }
     $db->close();
 ?>
