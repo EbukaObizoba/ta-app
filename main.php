@@ -23,7 +23,8 @@ if (isset($_POST["Professor"])) {
 }
 
 if (isset($_POST["Admin"])) {
-    header("location:admin.php");
+    $_SESSION["post"] = "post";
+    header("location:adminVerfiy.php");
     exit();
 }
 
