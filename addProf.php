@@ -11,5 +11,6 @@
         die("Insertion failed: " . $db_connection->error);
     } else {
         echo "Inserted Successfully.";
+        header("location: login.php");
     }
 ?>

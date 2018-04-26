@@ -11,7 +11,7 @@
 
 
     $body = <<<BODY
-     <form action="loginVer" method="post">
+     <form action="loginVerify.php" method="post">
         <strong>Email</strong>: <input type="email" name="email" required> <br>
         <strong>Password</strong>: <input type="password" name="password" required>  <br>
         <br>
