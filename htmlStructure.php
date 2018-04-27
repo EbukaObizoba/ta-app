@@ -21,6 +21,10 @@ function generatePage($body) {
         <div>
             $body
         </div>
+        <hr>
+        <footer style="text-align: right">
+        <a href="x.html">Home Page</a>
+        </footer>
     <script
           src="http://code.jquery.com/jquery-3.3.1.min.js"
           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
