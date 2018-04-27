@@ -15,8 +15,12 @@ function generatePage($body) {
             
     <body>
     <div class="container">
+        <div class="page-header">
+            <img src="images/umdLogo.gif">
+        </div>
+        <div>
             $body
-    </div>
+        </div>
     <script
           src="http://code.jquery.com/jquery-3.3.1.min.js"
           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
