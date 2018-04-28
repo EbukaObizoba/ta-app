@@ -8,15 +8,15 @@ function generatePage($body) {
         <title>ta-app</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="CSS/generalStyle.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />	
         <meta name="viewport" content="width=device-width, initial-scale=1">	
     </head>
             
-    <body>
+    <body class="body">
     <div class="container">
         <div class="page-header">
-            <img src="images/umdLogo.gif">
+            <img src="images/cs_logov2.png">
         </div>
         <div>
             $body

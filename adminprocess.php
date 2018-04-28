@@ -10,17 +10,10 @@
 
 
 
-    if (isset($_POST["TAassigned"])) {
-        header("location:adminViewTAassigned.php");
-        exit();
-    }
-    if (isset($_POST["TAunassigned"])) {
-        header("location:adminViewTAunassigned.php");
-    }
+
 
     $body = <<<BODY
         <h1 style="text-align: center">Faculty View </h1>
-        <div class="container">
             <form action="adminViewCourses.php" method="get">
                 <div class="form-group">
                     <input type="submit" value="View Courses" class="form-control">
@@ -31,7 +24,13 @@
                     <input type="submit" value="View Applications" class="form-control">
                 </div>
             </form>
-        </div>
+            <form action="addCoursesForm.php" method="get">
+                <div class="form-group">
+                    <input type="submit" value="Add Courses" class="form-control">
+                </div>
+            </form>
+            
+        
 BODY;
 
 
