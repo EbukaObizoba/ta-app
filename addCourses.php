@@ -26,10 +26,13 @@ BODY;
     $section = $_POST["section"];
     $numAssigned = $_POST["numAssigned"];
     $numNeeded = $_POST["numNeeded"];
+    $courseID = $_POST["course"] ."-".$_POST["section"];
 
     $query = "insert into CourseTable(course, section, profEmail, numAssigned,numNeeded) values('$course', '$section', '$profEmail', '$numAssigned', '$numNeeded')";
+    $query2 = "insert into professorToCourse(profEmail, courseIDs) values ('$profEmail', '$courseID')";
     $result = $db->query($query);
-    if (!$result) {
+    $result2 = $db->query($query2);
+    if (!$result || !$result2) {
         die("Insertion failed: " . $db_connection->error);
     } else {
         $db -> close();
