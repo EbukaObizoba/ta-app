@@ -6,6 +6,8 @@
  * Time: 4:34 PM
  */
 
+ require_once("htmlStructure.php");
+
 
 
     if (isset($_POST["TAassigned"])) {
@@ -17,35 +19,23 @@
     }
 
     $body = <<<BODY
-        <head>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-        </head>
-
-        <body>
-            <h1 style="text-align: center">Faculty View </h1>
-            <div class="container">
-                <form action="adminprocess.php" method="post">
-                    <div class="form-group">
-                        <input type="submit" name="TAassigned" value="TAs Assigned to Courses" class="form-control">
-                    </div>
-                
-                    <div class="form-group">
-                        <input type="submit" name="TAunassigned" value="TAs Not Assigned to Courses" class="form-control">
-                    </div>
-                
-                </form>
-            </div>
-            
-            <script
-            src="http://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous">
-            </script>
-        </body>
+        <h1 style="text-align: center">Faculty View </h1>
+        <div class="container">
+            <form action="adminViewCourses.php" method="get">
+                <div class="form-group">
+                    <input type="submit" value="View Courses" class="form-control">
+                </div>
+            </form>
+            <form action="adminViewApplications.php" method="get">
+                <div class="form-group">
+                    <input type="submit" value="View Applications" class="form-control">
+                </div>
+            </form>
+        </div>
 BODY;
 
 
 
-    echo $body;
+    echo generatePage($body);
 
 

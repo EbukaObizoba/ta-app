@@ -35,7 +35,7 @@ if ($conn->connect_error) {
 
 $table1 = "CREATE TABLE CourseTable (course int, section int, profEmail varchar(200), id int NOT NULL AUTO_INCREMENT, numAssigned int, numNeeded int, primary key (id))";
 $table2 = "CREATE TABLE StudentTable (email varchar(200) NOT NULL, fName varchar(50), lName varchar(50), resumeID int, password varchar (200)," .
-          "transcriptID int, gpa float, courseIDs int, uid int, taB4 ENUM('Y','N'), id int NOT NULL AUTO_INCREMENT, numOfSemesters int, grad enum('undergrad','grad'), primary key (id, email))";
+          "transcriptID int, gpa float, courseIDs varchar(200), uid int, taB4 ENUM('Y','N'), id int NOT NULL AUTO_INCREMENT, numOfSemesters int, grad enum('undergrad','grad'), primary key (id, email))";
 $table3 = "CREATE TABLE studentToCourse(studentId int, courseId int)";
 $table4 = "CREATE TABLE professor(profEmail varchar(200) NOT NULL, fName varchar(50), lName varchar(50), password varchar (200), id int NOT NULL AUTO_INCREMENT, primary key (id, profEmail))";
 $table5 = "CREATE TABLE professorToCourse(profId int, courseId int)";
