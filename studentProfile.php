@@ -47,11 +47,10 @@ EOBODY;
         $field = "courseIDs";
         $email = $entry["email"];
         $query = "update $table set courseIDs='$coursesAsString' where email='$email'";
-        echo $query;
         $result = $db->query($query);
         if (!$result) {
             die("Update failed: ". $db->error);
-        } else echo "\nSuccessful courses update!\n";
+        }
 
     }
 
