@@ -26,7 +26,7 @@
                     <input type="submit" value="View Courses" class="form-control">
                 </div>
             </form>
-            <form action="adminViewApplications.php" method="get">
+            <form action="adminFilterApps.php" method="get">
                 <div class="form-group">
                     <input type="submit" value="View Applications" class="form-control">
                 </div>
