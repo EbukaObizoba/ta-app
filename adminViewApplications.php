@@ -9,12 +9,29 @@
         <?php 
             require_once("connectDB.php");
             $db = connectToDB();
-            $query = "select * from StudentTable";
+            $whereClauses = [];
+            if (isset($_POST["gpa"]) && !empty($_POST["gpa"]) && is_numeric($_POST["gpa"])) {
+                $gpa = $_POST["gpa"];
+                array_push($whereClauses, "gpa>=$gpa");
+            }
+            if (isset($_POST["type"]) && !empty($_POST["type"])) {
+                $type = $_POST["type"];
+                array_push($whereClauses, "grad='$type'");
+            }
+            if (isset($_POST["taedB4"]) && !empty($_POST["taedB4"])) {
+                $yesNo = $_POST["taedB4"];
+                array_push($whereClauses, "taB4='$yesNo'");
+            }
+            $whereClause = "";
+            if (!empty($whereClauses)) {
+                $whereClause = "where ".implode(" and ", $whereClauses);
+            }
+            $query = "select * from StudentTable"." ".$whereClause;
             $result = $db->query($query); 
             if (!$result) {
                 die("Retrieval failed: ". $db->error);
             } else if($result->num_rows == 0) {
-                echo "No applications added.";
+                echo "No applications found.";
             } else {
                 echo "<table class='table table-striped'>";
                 echo "
