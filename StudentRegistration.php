@@ -4,7 +4,7 @@ require_once ("connectDB.php");
 
 $body = <<<BODY
 
-     <div class="container">
+    
         <h1>Student Registration</h1><br>
         <form action="addStudent.php" method="post">
         
@@ -79,7 +79,7 @@ $body = <<<BODY
                     <button type='submit' class="btn btn-default">Submit</button>
             </div>
         </form>
-    </div>
+    
         <script
           src="http://code.jquery.com/jquery-3.3.1.min.js"
           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
