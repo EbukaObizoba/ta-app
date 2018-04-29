@@ -1,10 +1,12 @@
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />	
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="CSS/adminView.css" />
             <meta name="viewport" content="width=device-width, initial-scale=1">	
     </head>
-    <body style="margin: 0.5em;">
+    <body class="body" style="margin: 0.5em;">
+    <div class="container">
         <h1>Courses Table</h1>
         <?php 
             require_once("connectDB.php");
@@ -49,11 +51,16 @@
             }
             $db->close();
         ?>
+        <hr>
+        <footer style="text-align: right">
+            <a href="x.html">Home Page</a>
+        </footer>
         <script
             src="http://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous">
             </script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </div>
     </body>
 </html>
