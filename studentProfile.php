@@ -1,5 +1,6 @@
 <?php
     require_once("connectDB.php");
+    require_once("addPDF.php");
     require_once("htmlStructure.php");
 
     if(session_status() == PHP_SESSION_NONE) session_start();
@@ -7,6 +8,31 @@
     $entry = $_SESSION["profile"];
     $courses = getCourses($db);
     $coursesBody = buildCoursesHTML($courses);
+    $studentBodyData = "";
+    if(isset($_SESSION["student"])){
+        $studentBodyData =<<< EODATA
+        <div class="form-group">
+            <h3>Choose courses to TA:</h3><br>
+            <div class="form-group">
+                $coursesBody
+            </div>
+            <input type="submit" name="coursesToTutor" value="Submit Intended Courses"/>
+        </div>
+        <div class="form-group">
+            <h3>Upload student documents:</h3><br>
+            <div class="row">
+                <div class="col-md-2">Unofficial Transcript</div>
+                <div class="col-md-3"><input type="file" name="transcriptFileName" accept=".pdf"></div>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" name="submitDocuments" value="Submit Documents">
+            </div>
+        </div>
+EODATA;
+
+
+    }
     $body =<<< EOBODY
         <form class="form-group" method="get">
             <div class="form-group">
@@ -39,26 +65,16 @@
                     <div class="col-md-3">{$entry["grad"]}</div>
                 </div>
             </div>
-            <div class="form-group">
-                <h3>Choose courses to TA:</h3><br>
-                <div class="form-group">
-                    $coursesBody
-                </div>
-                <input type="submit" name="coursesToTutor" value="Submit Intended Courses"/>
-            </div>
-            <div class="form-group">
-                <h3>Upload student documents:</h3><br>
-                <div class="row">
-                    <div class="col-md-2">Unofficial Transcript</div>
-                    <div class="col-md-3"><input type="file" name="transcriptFileName" accept=".pdf"></div>
-                </div>
-                <br>
-                <div class="form-group">
-                    <input type="button" name="submitDocuments" value="Submit Documents">
-                </div>
-            </div>
+            $studentBodyData
         </form>
 EOBODY;
+
+    if(isset($_GET["submitDocuments"])){
+        if(isset($_GET["transcriptFileName"])){
+            $transcriptFile = $_GET["transcriptFileName"];
+            addTrans($transcriptFile, $entry["email"]);
+        }
+    }
 
     if(isset($_GET["coursesToTutor"])){
         $chosenCourses = [];

@@ -17,6 +17,16 @@
         }
     }
     $body =<<< EOBODY
+            <style>
+                input[type=submit] {
+                    background:none!important;
+                    border:none;
+                    padding:0!important;
+                    font-family:arial,sans-serif;
+                    color:#069;
+                    cursor:pointer;
+                }
+            </style>
             <form method="get">
                 <div>
                     <h1>{$entry["fName"]} {$entry["lName"]}</h1>
@@ -27,7 +37,7 @@
                         <select class="selectpicker" name="chosenCourse">
                             $professorCourses
                         </select>
-                        <input type="submit" name="coursesButton" value="Get TAs for selected course">
+                        <button type="submit" name="coursesButton">Get TAs for selected course</button>
                     </div>
                     <div>
                         <div class="form-group">
@@ -42,6 +52,31 @@
                 </div>
             </form>
 EOBODY;
+
+    if(isset($_GET["studentEntry"])){
+        $fullName = $_GET["studentEntry"];
+        gotoStudent($db, $fullName);
+    }
+
+    function gotoStudent($db, $fullName){
+        list($firstName, $lastName) = explode(" ", $fullName);
+        $table = "studenttable";
+        $query = "select * from $table where fName = '$firstName' and lName = '$lastName'";
+        $result = $db->query($query);
+        if (!$result) {
+            die("Retrieval failed: ". $db->error);
+        } else if($result->num_rows == 0) {
+            echo "No entry exists in the database for the specified email and password";
+        } else {
+            echo "User Found";
+            $result->data_seek(0);
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            var_dump($row);
+            $_SESSION["profile"] = $row;
+            header("Location: studentProfile.php");
+        }
+        $db->close();
+    }
 
     function getEligibleTAsTableForCourse($db, $course){
         $table = "studentTable";
@@ -125,8 +160,8 @@ EOBODY;
                 for ($row_index = 0; $row_index < $num_rows; $row_index++) {
                     $result->data_seek($row_index);
                     $row = $result->fetch_array(MYSQLI_ASSOC);
-                    $body .= "<tr><td><a>$row[fName] $row[lName]</a></td><td>$row[uid]</td>" .
-                        "<td>$row[gpa]</td><td>$row[taB4]</td><td>$row[grad]</td></tr>";
+                    $body .= "<tr><td><input type='submit' name='studentEntry' value='$row[fName] $row[lName]'/>" .
+                             "</td><td>$row[uid]</td><td>$row[gpa]</td><td>$row[taB4]</td><td>$row[grad]</td></tr>";
                 }
             }
         }
@@ -136,10 +171,10 @@ EOBODY;
 
     function getCoursesProfessorTeaches($db, $entry){
         $table = "professorToCourse";
-        $professorId = $entry["profEmail"];
+        $professorEmail = $entry["profEmail"];
         //var_dump($professorId);
         $courses = [];
-        $query = "select courseIDs from $table where profEmail= '$professorId'";
+        $query = "select courseIDs from $table where profEmail= '$professorEmail'";
         $result = $db->query($query);
         if (!$result) {
             die("Retrieval failed: ". $db->error);
@@ -147,15 +182,12 @@ EOBODY;
             echo "No course entries exist in the database.";
         } else {
             $num_rows = $result->num_rows;
-            $coursesStr = "";
             for ($row_index = 0; $row_index < $num_rows; $row_index++) {
                 $result->data_seek($row_index);
                 $row = $result->fetch_array(MYSQLI_ASSOC);
                 $coursesStr = $row["courseIDs"];
-            }
-            $courses = explode(",", $coursesStr);
-            for($pos = 0; $pos < count($courses); $pos++){
-                $courses[$pos] = "CMSC" . $courses[$pos];
+                $course = explode("-", $coursesStr);
+                array_push($courses, $course[0]);
             }
         }
 
@@ -165,7 +197,7 @@ EOBODY;
     function coursesArrayToDropDownHTML($courses){
         $body = "<option selected disabled>Select course</option>";
         foreach($courses as $course){
-            $body .= "<option>$course</option>";
+            $body .= "<option>CMSC$course</option>";
         }
         return $body;
     }
