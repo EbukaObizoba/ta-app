@@ -12,28 +12,54 @@
             <div class="form-group">
                 <h1>{$entry["fName"]} {$entry["lName"]}</h1>
             </div>
-            <div>
+            <div class="form-group">
+                <h3>Personal Information</h3><br>
+                <div class="row">
+                    <div class="col-md-2">Email:</div>
+                    <div class="col-md-3">{$entry["email"]}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">University ID:</div>
+                    <div class="col-md-3">{$entry["uid"]}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">GPA:</div>
+                    <div class="col-md-3">{$entry["gpa"]}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">Previous Experience as TA:</div>
+                    <div class="col-md-3">{$entry["taB4"]}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">Number of Semesters TA'd:</div>
+                    <div class="col-md-3">{$entry["numOfSemesters"]}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">Student Level:</div>
+                    <div class="col-md-3">{$entry["grad"]}</div>
+                </div>
+            </div>
+            <div class="form-group">
                 <h3>Choose courses to TA:</h3><br>
-                <div >
+                <div class="form-group">
                     $coursesBody
                 </div>
                 <input type="submit" name="coursesToTutor" value="Submit Intended Courses"/>
             </div>
-            <div>
+            <div class="form-group">
                 <h3>Upload student documents:</h3><br>
-                <div class="row">
-                    <div class="col-md-2">Resume</div>
-                    <div class="col-md-3"><input type="file" name="resumeFileName" accept=".pdf"></div>
-                </div>
                 <div class="row">
                     <div class="col-md-2">Unofficial Transcript</div>
                     <div class="col-md-3"><input type="file" name="transcriptFileName" accept=".pdf"></div>
                 </div>
-                <input type="button" name="submitDocuments" value="Submit Documents">
+                <br>
+                <div class="form-group">
+                    <input type="button" name="submitDocuments" value="Submit Documents">
+                </div>
             </div>
         </form>
 EOBODY;
-    //print_r($_GET);
+
     if(isset($_GET["coursesToTutor"])){
         $chosenCourses = [];
         foreach($courses as $course){
