@@ -64,28 +64,41 @@ $body = <<<BODY
                 <input class="radio-inline" type="radio" name="grad" class="form-control" value="undergrad" required><br>
             </div>
             
-            
-            <!--<div class="form-group">-->
-                <!--<label for="resume">Resume: </label>-->
-                <!--<input type="file" name="resumeID" class="form-control" id="resume" required><br><br>-->
-            <!--</div>-->
-            <!---->
-            <!--<div class="form-group">-->
-                <!--<label for="transcript">Transcript: </label>-->
-                <!--<input type="file" name="transcriptID" class="form-control" id="transcript" required><br><br>-->
-            <!--</div>-->
-            
             <div class='form-group'>
-                    <button type='submit' class="btn btn-default">Submit</button>
+                    <button id="submit" type='submit' class="btn btn-default">Submit</button>
             </div>
         </form>
     
-        <script
-          src="http://code.jquery.com/jquery-3.3.1.min.js"
-          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-          crossorigin="anonymous">
+
+              <script>
+            "use strict";
+            
+            let submit= document.getElementById("submit");
+            submit.onclick= formValidate;
+            
+            function formValidate(){
+                let errors= "";
+                
+                let rePassword= document.getElementById("rePassword").value;
+                let password= document.getElementById("password").value;   
+                if(rePassword !== password){
+                    errors += "Passwords must match\\n";
+                }
+                
+                let email= document.getElementById("email").value;
+                let index = email.indexOf("@");
+                if(email.substr(index) !== "@umd.edu" &&
+                   email.substr(index) !== "@terpmail.umd.edu"){
+                    errors+= "Must enter a UMD email(@umd.edu or @terpmail.umd.edu)\\n";
+                }
+                
+                if(errors !== ""){
+                    alert(errors);
+                    return false;
+                }
+                
+            }
         </script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 BODY;
 
 echo generatePage($body);
