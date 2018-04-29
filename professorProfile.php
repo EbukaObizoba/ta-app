@@ -4,7 +4,7 @@
 
     if(session_status() == PHP_SESSION_NONE) session_start();
     $db = connectToDB();
-    $entry = $_SESSION["profile"];
+    $entry = $_SESSION["profProfile"];
     //var_dump();
     $professorCourses = getCoursesProfessorTeaches($db, $entry);
     $courseTAsTable = "";
@@ -72,7 +72,7 @@ EOBODY;
             $result->data_seek(0);
             $row = $result->fetch_array(MYSQLI_ASSOC);
             var_dump($row);
-            $_SESSION["profile"] = $row;
+            $_SESSION["studentProfile"] = $row;
             header("Location: studentProfile.php");
         }
         $db->close();

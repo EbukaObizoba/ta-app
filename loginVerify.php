@@ -22,10 +22,12 @@
         $result->data_seek(0);
         $row = $result->fetch_array(MYSQLI_ASSOC);
         var_dump($row);
-        $_SESSION["profile"] = $row;
+
         if($table == "professor"){
+            $_SESSION["profProfile"] = $row;
             header("Location: professorProfile.php");
         } else {
+            $_SESSION["studentProfile"] = $row;
             header("Location: studentProfile.php");
         }
     }

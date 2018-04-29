@@ -5,7 +5,7 @@
 
     if(session_status() == PHP_SESSION_NONE) session_start();
     $db = connectToDB();
-    $entry = $_SESSION["profile"];
+    $entry = $_SESSION["studentProfile"];
     $courses = getCourses($db);
     $coursesBody = buildCoursesHTML($courses);
     $studentBodyData = "";
