@@ -19,10 +19,43 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
                 </div>
+                <div class="form-group">
+                    <label for="rePassword">Re-enter Password</label>
+                    <input type="password" name="rePassword" class="form-control" id="rePassword" placeholder="Password" required>
+                </div>
                 <div class='form-group'>
-                    <button type='submit' class="btn btn-default">Submit</button>
+                    <button type='submit' class="btn btn-default" id="submit">Submit</button>
                 </div>
             </form>
+                    <script>
+            "use strict";
+            
+            let submit= document.getElementById("submit");
+            submit.onclick= formValidate;
+            
+            function formValidate(){
+                let errors= "";
+                
+                let rePassword= document.getElementById("rePassword").value;
+                let password= document.getElementById("password").value;   
+                if(rePassword !== password){
+                    errors += "Passwords must match\\n";
+                }
+                
+                let email= document.getElementById("email").value;
+                let index = email.indexOf("@");
+                if(email.substr(index) !== "@umd.edu" &&
+                   email.substr(index) !== "@terpmail.umd.edu"){
+                    errors+= "Must enter a UMD email(@umd.edu or @terpmail.umd.edu)\\n";
+                }
+                
+                if(errors !== ""){
+                    alert(errors);
+                    return false;
+                }
+                
+            }
+        </script>
   
 BODY;
     echo generatePage($body);

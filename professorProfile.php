@@ -5,6 +5,7 @@
     if(session_status() == PHP_SESSION_NONE) session_start();
     $db = connectToDB();
     $entry = $_SESSION["profile"];
+    //var_dump();
     $professorCourses = getCoursesProfessorTeaches($db, $entry);
     $courseTAsTable = "";
     $eligibleTAsTable = "";
@@ -35,10 +36,11 @@ EOBODY;
     }
 
     function getCoursesProfessorTeaches($db, $entry){
-        $table = "professortocourse";
-        $professorId = $entry["id"];
+        $table = "professorToCourse";
+        $professorId = $entry["profEmail"];
+        //var_dump($professorId);
         $courses = [];
-        $query = "select courseIDs from $table where profEmail=$professorId";
+        $query = "select courseIDs from $table where profEmail= '$professorId'";
         $result = $db->query($query);
         if (!$result) {
             die("Retrieval failed: ". $db->error);
@@ -49,7 +51,7 @@ EOBODY;
             for ($row_index = 0; $row_index < $num_rows; $row_index++) {
                 $result->data_seek($row_index);
                 $row = $result->fetch_array(MYSQLI_ASSOC);
-                array_push($courses, "CMSC" . $row["course"]);
+                array_push($courses, "CMSC" . $row["courseIDs"]);
             }
         }
         return coursesArrayToDropDownHTML($courses);
