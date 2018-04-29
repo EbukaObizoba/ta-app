@@ -48,17 +48,23 @@ EOBODY;
             echo "No course entries exist in the database.";
         } else {
             $num_rows = $result->num_rows;
+            $coursesStr = "";
             for ($row_index = 0; $row_index < $num_rows; $row_index++) {
                 $result->data_seek($row_index);
                 $row = $result->fetch_array(MYSQLI_ASSOC);
-                array_push($courses, "CMSC" . $row["courseIDs"]);
+                $coursesStr = $row["courseIDs"];
+            }
+            $courses = explode(",", $coursesStr);
+            for($pos = 0; $pos < count($courses); $pos++){
+                $courses[$pos] = "CMSC" . $courses[$pos];
             }
         }
+
         return coursesArrayToDropDownHTML($courses);
     }
 
     function coursesArrayToDropDownHTML($courses){
-        $body = "";
+        $body = "<option selected disabled>Select course</option>";
         foreach($courses as $course){
             $body .= "<option>$course</option>";
         }
