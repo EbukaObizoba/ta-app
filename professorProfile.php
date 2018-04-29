@@ -21,7 +21,7 @@
                         </select>
                     </div>
                     <div>
-                        $coursesTAsTable
+                        $courseTAsTable
                     </div>
                     <div>
                         $eligibleTAsTable
@@ -31,14 +31,14 @@
 EOBODY;
 
     function getTAsTableForCourse($course){
-        
+
     }
 
     function getCoursesProfessorTeaches($db, $entry){
         $table = "professortocourse";
         $professorId = $entry["id"];
         $courses = [];
-        $query = "select courseId from $table where profId=$professorId";
+        $query = "select courseIDs from $table where profEmail=$professorId";
         $result = $db->query($query);
         if (!$result) {
             die("Retrieval failed: ". $db->error);
