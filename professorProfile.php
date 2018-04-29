@@ -13,6 +13,7 @@
         if(isset($_GET["chosenCourse"])){
             $course = $_GET["chosenCourse"];
             $courseTAsTable .= getTAsTableForCourse($db, $course);
+            $eligibleTAsTable .= getEligibleTAsTableForCourse($db, $course);
         }
     }
     $body =<<< EOBODY
@@ -23,7 +24,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <h3>Select TAs to view by course</h3><br>
-                        <select name="chosenCourse">
+                        <select class="selectpicker" name="chosenCourse">
                             $professorCourses
                         </select>
                         <input type="submit" name="coursesButton" value="Get TAs for selected course">
@@ -41,6 +42,49 @@
                 </div>
             </form>
 EOBODY;
+
+    function getEligibleTAsTableForCourse($db, $course){
+        $table = "studentTable";
+        $course = substr($course, 4);
+        $studentIds = [];
+        $query = "select id from $table where courseIDs like '%$course%'";
+        $result = $db->query($query);
+        if (!$result) {
+            die("Retrieval failed: ". $db->error);
+        } else if($result->num_rows == 0) {
+            echo "No entries from studentTable table exist in the database.";
+        } else {
+            $num_rows = $result->num_rows;
+            for ($row_index = 0; $row_index < $num_rows; $row_index++) {
+                $result->data_seek($row_index);
+                $row = $result->fetch_array(MYSQLI_ASSOC);
+                array_push($studentIds, $row["id"]);
+            }
+        }
+        $eligibleIds = getEligibleIds($db, $course, $studentIds);
+        $title = "CMSC$course TA Candidates";
+        return getStudentsById($db, $eligibleIds, $title);
+    }
+
+    function getEligibleIds($db, $course, $studentIds){
+        $table = "studentToCourse";
+        $ids = [];
+        $query = "select studentId from $table where courseId='$course'";
+        $result = $db->query($query);
+        if (!$result) {
+            die("Retrieval failed: ". $db->error);
+        } else if($result->num_rows == 0) {
+            echo "No entries from studentToCourse table exist in the database.";
+        } else {
+            $num_rows = $result->num_rows;
+            for ($row_index = 0; $row_index < $num_rows; $row_index++) {
+                $result->data_seek($row_index);
+                $row = $result->fetch_array(MYSQLI_ASSOC);
+                array_push($ids, $row["studentId"]);
+            }
+        }
+        return array_diff($studentIds, $ids);
+    }
 
     function getTAsTableForCourse($db, $course){
         $table = "studentToCourse";
@@ -60,13 +104,13 @@ EOBODY;
                 array_push($studentIds, $row["studentId"]);
             }
         }
-
-        return getStudentsById($db, $course, $studentIds);
+        $title = "CMSC$course Teaching Assistants";
+        return getStudentsById($db, $studentIds, $title);
     }
 
-    function getStudentsById($db, $course, $studentIds){
+    function getStudentsById($db, $studentIds, $title){
         $table = "studentTable";
-        $body = "<h3>CMSC$course Teaching Assistants</h3><br>";
+        $body = "<h3>$title</h3><br>";
         $body .= "<table class='table table-bordered'>";
         $body .= "<thead><tr><td>Student Name</td><td>UID</td><td>GPA</td><td>TA Experience</td><td>Student Level</td></tr></thead>";
         foreach($studentIds as $studentId){
