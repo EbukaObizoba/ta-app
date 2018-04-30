@@ -96,8 +96,9 @@ EOBODY;
                 array_push($studentIds, $row["id"]);
             }
         }
-        $eligibleIds = getEligibleIds($db, $course, $studentIds);
-        $title = "CMSC$course TA Candidates";
+        $courseNameArray = explode("-", $course);
+        $eligibleIds = getEligibleIds($db, $courseNameArray[0], $studentIds);
+        $title = "CMSC$courseNameArray[0] TA Candidates";
         return getStudentsById($db, $eligibleIds, $title);
     }
 
