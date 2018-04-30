@@ -16,7 +16,7 @@
                 return ($aSize < $bSize) ? -1 : 1;
             }
             function insertInStudentToCourse($db, $key, $assignments) {
-                foreach ($assignments as $key => $value) {
+                foreach ($assignments as $key1 => $value) {
                     $query = "insert into studentToCourse (studentId, courseId) values($value, '$key')";
                     $db->query($query);
                 }
