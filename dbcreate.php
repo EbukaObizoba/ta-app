@@ -35,8 +35,8 @@ if ($conn->connect_error) {
 
 $table1 = "CREATE TABLE CourseTable (course int, section int, profEmail varchar(200), id int NOT NULL AUTO_INCREMENT, numAssigned int, numNeeded int, primary key (id))";
 $table2 = "CREATE TABLE StudentTable (email varchar(200) NOT NULL, fName varchar(50), lName varchar(50), resumeID int, password varchar (200)," .
-          "transcriptID int, gpa float, courseIDs varchar(200), uid int, taB4 ENUM('Y','N'), id int NOT NULL AUTO_INCREMENT, numOfSemesters int, grad enum('undergrad','grad'), primary key (id, email))";
-$table3 = "CREATE TABLE studentToCourse(studentId int, courseId int)";
+          "transcriptID int, gpa float, courseIDs varchar(200), uid int, taB4 ENUM('Y','N'), id int NOT NULL AUTO_INCREMENT, numOfSemesters int, grad enum('undergrad','grad'), fulfilled enum('Y', 'N') default 'N', primary key (id, email))";
+$table3 = "CREATE TABLE studentToCourse(studentId int, courseId varchar(200))";
 $table4 = "CREATE TABLE professor(profEmail varchar(200) NOT NULL, fName varchar(50), lName varchar(50), password varchar (200), id int NOT NULL AUTO_INCREMENT, primary key (id, profEmail))";
 $table5 = "CREATE TABLE professorToCourse(profEmail varchar(200) NOT NULL, courseIDs varchar(200))";
 $table6 = "CREATE TABLE filesTable(id int NOT NULL AUTO_INCREMENT, email varchar(200) NOT NULL, file longblob, primary key (id,email))";
