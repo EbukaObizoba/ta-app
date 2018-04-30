@@ -33,7 +33,7 @@ BODY;
     $result = $db->query($query);
     $result2 = $db->query($query2);
     if (!$result || !$result2) {
-        die("Insertion failed: " . $db_connection->error);
+        die("Insertion failed: " . $db->error);
     } else {
         $db -> close();
         echo generatePage($body);

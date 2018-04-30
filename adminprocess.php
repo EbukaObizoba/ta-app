@@ -29,6 +29,11 @@
                     <input type="submit" value="Add Courses" class="form-control">
                 </div>
             </form>
+            <form action="alg.php" method="get">
+                <div class="form-group">
+                    <input type="submit" value="Run TA Assignment Alg" class="form-control">
+                </div>
+            </form>
             
         
 BODY;

@@ -14,11 +14,11 @@ $numOfSemesters= $_POST["numOfSemesters"];
 $grad= $_POST["grad"];
 //email	fName	lName	resumeID	password	transcriptID	gpa	courseIDs	uid	taB4	id	numOfSemesters	grad
 
-$query = "insert into studenttable (email, fName, lName, password, gpa, uid, taB4, numOfSemesters, grad) 
+$query = "insert into StudentTable (email, fName, lName, password, gpa, uid, taB4, numOfSemesters, grad) 
           values('$email', '$fName', '$lName', PASSWORD('$password'), '$gpa', '$uid', '$taB4', '$numOfSemesters', '$grad')";
 $result = $db->query($query);
 if (!$result) {
-    die("Insertion failed: " . $db_connection->error);
+    die("Insertion failed: " . $db->error);
 } else {
     echo "Inserted Successfully.";
     header("location: login.php");
