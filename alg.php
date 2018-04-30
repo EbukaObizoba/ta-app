@@ -33,7 +33,7 @@
                 $section = intval(substr($courseSection, $idxOfDash + 1));
                 $setClause = "set numAssigned = $newAssigned, numNeeded = $newWanted";
                 $whereClause = "where course = $course and section = $section";
-                $query = "update CourseTable $setClause ";
+                $query = "update CourseTable $setClause $whereClause";
                 $db->query($query);
             }
             require_once("connectDB.php");
@@ -114,8 +114,8 @@
                             $db->begin_transaction();
                             insertInStudentToCourse($db, $key, $value);
                             updateStudents($db, $value);
-                            $newAssigned = $coursesNeeded[$key]["numAssigned"] + count($value); 
-                            $newWanted = $coursesNeeded[$key]["numNeeded"] - count($value);
+                            $newAssigned = $coursesNeeded[$key]["numAssigned"] + sizeof($value); 
+                            $newWanted = $coursesNeeded[$key]["numNeeded"] - sizeof($value);
                             updateCourses($db, $key, $newAssigned, $newWanted);
                             $db->commit();
                         } catch(Exception $e) {
