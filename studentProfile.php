@@ -113,6 +113,7 @@ EOBODY;
                 array_push($courses, "CMSC" . $row["course"]);
             }
         }
+        $courses = array_unique($courses);
         return $courses;
     }
 
