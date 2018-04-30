@@ -27,11 +27,11 @@
                     $db->query($query);
                 }
             }
-            function updateCourses($db, $courseSection, $newAssigned, $newWanted) {
+            function updateCourses($db, $courseSection, $newAssigned) {
                 $idxOfDash = strpos($courseSection, '-');
                 $course = intval(substr($courseSection, 0, $idxOfDash));
                 $section = intval(substr($courseSection, $idxOfDash + 1));
-                $setClause = "set numAssigned = $newAssigned, numNeeded = $newWanted";
+                $setClause = "set numAssigned = $newAssigned";
                 $whereClause = "where course = $course and section = $section";
                 $query = "update CourseTable $setClause $whereClause";
                 $db->query($query);
@@ -77,8 +77,8 @@
                         $row = $result->fetch_array(MYSQLI_ASSOC);
                         $obj = [];
                         $obj["section"] = str_pad($row["section"], 4, '0', STR_PAD_LEFT);
-                        $obj["numNeeded"] = intval($row["numNeeded"]);
                         $obj["numAssigned"] = intval($row["numAssigned"]);
+                        $obj["numNeeded"] = intval($row["numNeeded"]) - $obj["numAssigned"];
                         $qualifiedName = $row["course"]."-".$obj["section"];
                         $coursesNeeded[$qualifiedName] = array("numNeeded" => $obj["numNeeded"], "numAssigned" => $obj["numAssigned"]);
                         if (array_key_exists($row["course"], $courses)) {
@@ -115,8 +115,7 @@
                             insertInStudentToCourse($db, $key, $value);
                             updateStudents($db, $value);
                             $newAssigned = $coursesNeeded[$key]["numAssigned"] + sizeof($value); 
-                            $newWanted = $coursesNeeded[$key]["numNeeded"] - sizeof($value);
-                            updateCourses($db, $key, $newAssigned, $newWanted);
+                            updateCourses($db, $key, $newAssigned);
                             $db->commit();
                         } catch(Exception $e) {
                             $db->rollback();
