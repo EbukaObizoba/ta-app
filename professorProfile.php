@@ -96,21 +96,20 @@ EOBODY;
                 array_push($studentIds, $row["id"]);
             }
         }
-        $courseNameArray = explode("-", $course);
-        $eligibleIds = getEligibleIds($db, $courseNameArray[0], $studentIds);
-        $title = "CMSC$courseNameArray[0] TA Candidates";
+        $eligibleIds = getEligibleIds($db, $course, $studentIds);
+        $title = "CMSC$course TA Candidates";
         return getStudentsById($db, $eligibleIds, $title);
     }
 
     function getEligibleIds($db, $course, $studentIds){
         $table = "studentToCourse";
         $ids = [];
-        $query = "select studentId from $table where courseId='$course'";
+        $query = "select studentId from $table where courseId like '$course-%'";
         $result = $db->query($query);
         if (!$result) {
             die("Retrieval failed: ". $db->error);
         } else if($result->num_rows == 0) {
-            echo "No entries from studentToCourse table exist in the database.";
+            echo "No entries from studentToCourse 1 table exist in the database.";
         } else {
             $num_rows = $result->num_rows;
             for ($row_index = 0; $row_index < $num_rows; $row_index++) {
@@ -126,12 +125,12 @@ EOBODY;
         $table = "studentToCourse";
         $studentIds = [];
         $course = substr($course, 4);
-        $query = "select studentId from $table where courseId='$course'";
+        $query = "select studentId from $table where courseId like '$course-%'";
         $result = $db->query($query);
         if (!$result) {
             die("Retrieval failed: ". $db->error);
         } else if($result->num_rows == 0) {
-            echo "No entries from studentToCourse table exist in the database.";
+            echo "No entries from studentToCourse 2 table exist in the database.";
         } else {
             $num_rows = $result->num_rows;
             for ($row_index = 0; $row_index < $num_rows; $row_index++) {
